@@ -21,8 +21,11 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(num) {
+  if (num >= 0) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -38,8 +41,16 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  let max = 0;
+  if (a > b && a > c) {
+    max = a;
+  } else if (b > a && b > c) {
+    max = b;
+  } else {
+    max = c;
+  }
+  return max;
 }
 
 /**
@@ -60,8 +71,15 @@ function getMaxNumber(/* a, b, c */) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  if (
+    queen.x === king.x ||
+    queen.y === king.y ||
+    Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y)
+  ) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -82,8 +100,17 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if (a === 0 || b === 0 || c === 0) {
+    return false;
+  }
+  if (a >= b + c || b >= a + c || c >= a + b) {
+    return false;
+  }
+  if (a === b || a === c || b === c) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -100,8 +127,46 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  let str = '';
+  let helper = 0;
+  let num2 = num;
+
+  if (num2 >= 10) {
+    helper = Math.floor(num / 10);
+    num2 -= 10 * helper;
+    for (let i = 0; i < helper; i += 1) {
+      str += 'X';
+    }
+  }
+
+  if (num2 === 9) {
+    str += 'IX';
+    return str;
+  }
+
+  if (num2 >= 5) {
+    str += 'V';
+    num2 -= 5;
+    for (let i = 0; i < num2; i += 1) {
+      str += 'I';
+    }
+    return str;
+  }
+
+  if (num2 === 4) {
+    str += 'IV';
+    return str;
+  }
+
+  if (num2 < 4) {
+    for (let i = 0; i < num2; i += 1) {
+      str += 'I';
+    }
+    return str;
+  }
+
+  return str;
 }
 
 /**
