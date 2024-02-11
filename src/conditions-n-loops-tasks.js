@@ -354,20 +354,26 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  // const arr2 = [...arr];
-  // let temp;
-  // for (let i = 0; i < arr2.length; i += 1) {
-  //   for (let j = i + 1; j < arr2.length; j += 1) {
-  //     if (arr2[j] < arr2[i]) {
-  //       temp = j;
-  //       arr2[j] = arr2[i];
-  //       arr2[i] = temp;
-  //     }
-  //   }
-  // }
-  // return arr2;
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const finishResult = arr;
+  if (arr.length === 0) {
+    return arr;
+  }
+  const startArray = [];
+  const endArray = [];
+  const pElement = arr[0];
+  for (let i = 1; i < arr.length; i += 1) {
+    if (arr[i] > pElement) {
+      endArray[endArray.length] = arr[i];
+    } else {
+      startArray[startArray.length] = arr[i];
+    }
+  }
+  const result = [...sortByAsc(startArray), pElement, ...sortByAsc(endArray)];
+  for (let i = 0; i < arr.length; i += 1) {
+    finishResult[i] = result[i];
+  }
+  return finishResult;
 }
 
 /**
@@ -423,8 +429,49 @@ function shuffleChar(str, iterations) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+function getNearestBigger(number) {
+  const digs = [];
+  let tempNum = number;
+
+  while (tempNum > 0) {
+    digs.unshift(tempNum % 10);
+    tempNum = Math.floor(tempNum / 10);
+  }
+
+  let i = digs.length - 2;
+  while (i >= 0 && digs[i] >= digs[i + 1]) {
+    i -= 1;
+  }
+
+  if (i === -1) {
+    return number;
+  }
+
+  let j = digs.length - 1;
+  while (digs[j] <= digs[i]) {
+    j -= 1;
+  }
+
+  const temp = digs[i];
+  digs[i] = digs[j];
+  digs[j] = temp;
+
+  let start = i + 1;
+  let end = digs.length - 1;
+  while (start < end) {
+    const temp2 = digs[start];
+    digs[start] = digs[end];
+    digs[end] = temp2;
+    start += 1;
+    end -= 1;
+  }
+
+  let result = 0;
+  for (let k = 0; k < digs.length; k += 1) {
+    result = result * 10 + digs[k];
+  }
+
+  return result;
 }
 
 module.exports = {
