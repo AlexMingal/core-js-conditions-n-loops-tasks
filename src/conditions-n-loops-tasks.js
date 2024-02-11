@@ -184,8 +184,56 @@ function convertToRomanNumerals(num) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+
+function convertNumberToString(numberStr) {
+  let res = '';
+  for (let i = 0; i < numberStr.length; i += 1) {
+    const sign = numberStr[i];
+    switch (sign) {
+      case '-':
+        res += 'minus';
+        break;
+      case '.':
+      case ',':
+        res += 'point';
+        break;
+      case '0':
+        res += 'zero';
+        break;
+      case '1':
+        res += 'one';
+        break;
+      case '2':
+        res += 'two';
+        break;
+      case '3':
+        res += 'three';
+        break;
+      case '4':
+        res += 'four';
+        break;
+      case '5':
+        res += 'five';
+        break;
+      case '6':
+        res += 'six';
+        break;
+      case '7':
+        res += 'seven';
+        break;
+      case '8':
+        res += 'eight';
+        break;
+      case '9':
+        res += 'nine';
+        break;
+      default:
+    }
+    if (i !== numberStr.length - 1) {
+      res += ' ';
+    }
+  }
+  return res;
 }
 
 /**
@@ -200,8 +248,16 @@ function convertNumberToString(/* numberStr */) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  let res = false;
+  let reversed = '';
+  for (let i = str.length - 1; i >= 0; i -= 1) {
+    reversed += str[i];
+  }
+  if (str === reversed) {
+    res = true;
+  }
+  return res;
 }
 
 /**
@@ -268,19 +324,23 @@ function isContainNumber(num, digit) {
 //   throw new Error('Not implemented');
 // }
 
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
-
-  // let leftSum = 0;
-  // let rightSum = arr.reduce((acc, curr) => acc + curr, 0);
-  // for (let i = 0; i < arr.length; i += 0) {
-  //   rightSum -= arr[i];
-  //   if (leftSum === rightSum) {
-  //     return i;
-  //   }
-  //   leftSum += arr[i];
-  // }
-  // return -1;
+function getBalanceIndex(arr) {
+  let startElement = 1;
+  while (startElement < arr.length) {
+    let leftSum = 0;
+    let rightSum = 0;
+    for (let i = 0; i < startElement; i += 1) {
+      leftSum += arr[i];
+    }
+    for (let i = startElement + 1; i < arr.length; i += 1) {
+      rightSum += arr[i];
+    }
+    if (leftSum === rightSum) {
+      return startElement;
+    }
+    startElement += 1;
+  }
+  return -1;
 }
 
 /**
@@ -304,8 +364,44 @@ function getBalanceIndex(/* arr */) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const res = [];
+  let currentNumber = 1;
+  res.length = size;
+  for (let i = 0; i < res.length; i += 1) {
+    res[i] = [];
+    res[i].length = size;
+    for (let k = 0; k < res[i].length; k += 1) {
+      res[i][k] = 0;
+    }
+  }
+  let startRow = 0;
+  let endRow = res.length - 1;
+  let startColumn = 0;
+  let endColumn = res.length - 1;
+  while (startRow <= endRow && startColumn <= endColumn) {
+    for (let column = startColumn; column <= endColumn; column += 1) {
+      res[startRow][column] = currentNumber;
+      currentNumber += 1;
+    }
+    startRow += 1;
+    for (let row = startRow; row <= endRow; row += 1) {
+      res[row][endColumn] = currentNumber;
+      currentNumber += 1;
+    }
+    endColumn -= 1;
+    for (let column = endColumn; column >= startColumn; column -= 1) {
+      res[endRow][column] = currentNumber;
+      currentNumber += 1;
+    }
+    endRow -= 1;
+    for (let row = endRow; row >= startRow; row -= 1) {
+      res[row][startColumn] = currentNumber;
+      currentNumber += 1;
+    }
+    startColumn += 1;
+  }
+  return res;
 }
 
 /**
