@@ -268,17 +268,19 @@ function isContainNumber(num, digit) {
 //   throw new Error('Not implemented');
 // }
 
-function getBalanceIndex(arr) {
-  let leftSum = 0;
-  let rightSum = arr.reduce((acc, curr) => acc + curr, 0);
-  for (let i = 0; i < arr.length; i += 0) {
-    rightSum -= arr[i];
-    if (leftSum === rightSum) {
-      return i;
-    }
-    leftSum += arr[i];
-  }
-  return -1;
+function getBalanceIndex(/* arr */) {
+  throw new Error('Not implemented');
+
+  // let leftSum = 0;
+  // let rightSum = arr.reduce((acc, curr) => acc + curr, 0);
+  // for (let i = 0; i < arr.length; i += 0) {
+  //   rightSum -= arr[i];
+  //   if (leftSum === rightSum) {
+  //     return i;
+  //   }
+  //   leftSum += arr[i];
+  // }
+  // return -1;
 }
 
 /**
@@ -339,8 +341,19 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const arr2 = [...arr];
+  let temp;
+  for (let i = 0; i < arr2.length; i += 1) {
+    for (let j = i + 1; j < arr2.length; j += 1) {
+      if (arr2[j] < arr2[i]) {
+        temp = j;
+        arr2[j] = arr2[i];
+        arr2[i] = temp;
+      }
+    }
+  }
+  return arr2;
 }
 
 /**
